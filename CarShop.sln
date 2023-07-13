@@ -9,6 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShop.Domain", "CarShop.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShop.DAL", "CarShop.DAL\CarShop.DAL.csproj", "{F6E91444-7FF9-4185-9D8A-A94691F246E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{1B9F4D09-474C-4767-B8FA-3DB6C903A030}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{C5A16A73-B510-47F8-AB9D-C4F1BD9F5DED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{4AAE8E4D-7550-47E8-B1F3-0BC3B7C26A82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShop.Service", "CarShop.Service\CarShop.Service.csproj", "{BC19388B-D45E-430E-9542-BFA5288E19E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +35,18 @@ Global
 		{F6E91444-7FF9-4185-9D8A-A94691F246E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6E91444-7FF9-4185-9D8A-A94691F246E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6E91444-7FF9-4185-9D8A-A94691F246E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC19388B-D45E-430E-9542-BFA5288E19E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC19388B-D45E-430E-9542-BFA5288E19E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC19388B-D45E-430E-9542-BFA5288E19E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC19388B-D45E-430E-9542-BFA5288E19E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B3C9FAB-9ECA-45AA-8D87-5C3E6B7C732D} = {C5A16A73-B510-47F8-AB9D-C4F1BD9F5DED}
+		{F6E91444-7FF9-4185-9D8A-A94691F246E9} = {1B9F4D09-474C-4767-B8FA-3DB6C903A030}
+		{BC19388B-D45E-430E-9542-BFA5288E19E4} = {4AAE8E4D-7550-47E8-B1F3-0BC3B7C26A82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E5B3F6E-B7E7-43BF-B234-1C0C08E1C25E}
