@@ -11,7 +11,8 @@ namespace CarShop.Domain.Enum
 		OK =200,
 		InternalServerError = 500,
 		NotFound = 404,
-		UserNotFound = 0
+		UserNotFound = 0,
+		CarNotFound = 15
 
 
 	}

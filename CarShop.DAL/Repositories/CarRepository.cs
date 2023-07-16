@@ -23,14 +23,14 @@ namespace CarShop.DAL.Repositories
             await db.Car.AddAsync(entity);
             await db.SaveChangesAsync();
 
-            
+
 
             return true;
         }
 
         public async Task<bool> Delete(Car enity)
         {
-            
+
             db.Car.Remove(enity);
             await db.SaveChangesAsync();
 
@@ -42,7 +42,7 @@ namespace CarShop.DAL.Repositories
             return await db.Car.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public  async Task<Car> GetByName(string name)
+        public async Task<Car> GetByName(string name)
         {
             return await db.Car.FirstOrDefaultAsync(x => x.Name == name);
         }
@@ -50,6 +50,19 @@ namespace CarShop.DAL.Repositories
         public Task<List<Car>> Select()
         {
             return db.Car.ToListAsync();
+        }
+
+        public async Task<Car> Update(Car entity)
+        {
+            db.Update(entity);
+            await db.SaveChangesAsync();
+
+            return entity;
+        }
+
+        IQueryable<Car> IBaseRepository<Car>.Select()
+        {
+            return db.Car.ToQueryString();
         }
     }
 }

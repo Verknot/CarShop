@@ -1,13 +1,15 @@
 ﻿using CarShop.Domain.Entity.Enum;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace CarShop.Domain.Entity
+namespace CarShop.Domain.ViewModel.Car
 {
-    public class Car
-    {
+	public class CarViewModel
+	{
         public int Id { get; set; }
         public string Name { get; set; }
         public string Descroptions { get; set; }
@@ -15,7 +17,8 @@ namespace CarShop.Domain.Entity
         public decimal Price { get; set; }
         public double Speed { get; set; }
         public DateTime DateCreate { get; set; }
-        public TypeCar TypeCar { get; set; }
-    }
+        public string TypeCar { get; set; }
 
+        public IFormFile Avatar { get; set; }
+    }
 }

@@ -1,7 +1,9 @@
 ﻿using CarShop.DAL.Interfaces;
 using CarShop.Domain.Entity;
+using CarShop.Domain.Entity.Enum;
 using CarShop.Domain.Enum;
 using CarShop.Domain.Response;
+using CarShop.Domain.ViewModel.Car;
 using CarShop.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,8 +14,8 @@ using System.Xml.Linq;
 
 namespace CarShop.Service.Implementations
 {
-	public class CarService : ICarService
-	{
+    public class CarService : ICarService
+    {
         private readonly ICarRepository _carRepository;
 
         public CarService(ICarRepository carRepository)
@@ -23,8 +25,8 @@ namespace CarShop.Service.Implementations
         }
 
         public async Task<IBaseResponse<IEnumerable<Car>>> GetCars()
-		{
-			var baseResponse = new BaseResponse<IEnumerable<Car>>();
+        {
+            var baseResponse = new BaseResponse<IEnumerable<Car>>();
 
             try
             {
@@ -33,23 +35,24 @@ namespace CarShop.Service.Implementations
                 {
                     baseResponse.Description = "Найдено 0 элементов";
                     baseResponse.StatusCode = StatusCode.OK;
+
                     return baseResponse;
                 }
 
-               
+
                 baseResponse.Data = cars;
                 baseResponse.StatusCode = StatusCode.OK;
 
                 return baseResponse;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new BaseResponse<IEnumerable<Car>>()
                 {
                     Description = $"[GetCars] : {ex.Message}"
                 };
             }
-		}
+        }
 
         public async Task<IBaseResponse<Car>> GetCarById(int id)
         {
@@ -69,7 +72,7 @@ namespace CarShop.Service.Implementations
                 baseResponse.Data = car;
                 baseResponse.StatusCode = StatusCode.OK;
 
-                
+
                 return baseResponse;
             }
             catch (Exception ex)
@@ -78,7 +81,7 @@ namespace CarShop.Service.Implementations
                 {
                     Description = $"[GetById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
-            };
+                };
             }
         }
 
@@ -123,14 +126,14 @@ namespace CarShop.Service.Implementations
             try
             {
                 Car car = await _carRepository.GetById(id);
-                
+
                 if (car == null)
                 {
                     baseResponse.Description = "Некооректное имя пользователя";
                     baseResponse.StatusCode = StatusCode.UserNotFound;
                     return baseResponse;
                 }
-                
+
                 await _carRepository.Delete(car);
 
                 return baseResponse;
@@ -145,5 +148,76 @@ namespace CarShop.Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<CarViewModel>> CreateCar(CarViewModel carViewModel)
+        {
+            var baseResponse = new BaseResponse<CarViewModel>();
+
+
+            try
+            {
+                var car = new Car()
+                {
+                    Descroptions = carViewModel.Descroptions,
+                    DateCreate = DateTime.Now,
+                    Speed = carViewModel.Speed,
+                    Model = carViewModel.Model,
+                    Price = carViewModel.Price,
+                    Name = carViewModel.Name,
+                    TypeCar = (TypeCar)Convert.ToInt32(carViewModel.TypeCar)
+                };
+
+
+
+
+                await _carRepository.Create(car);
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<CarViewModel>()
+                {
+                    Description = $"[DeleteCar] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Car>> Edit(int id, CarViewModel model)
+        {
+            var BaseResponse = new BaseResponse<Car>();
+
+            try
+            {
+                var car = await _carRepository.GetById(id);
+                if (car != null)
+                {
+                    BaseResponse.StatusCode = StatusCode.CarNotFound;
+                    BaseResponse.Description = "Car not found";
+                    return BaseResponse;
+                }
+                car.Descroptions = model.Descroptions;
+                car.DateCreate = DateTime.Now;
+                car.Speed = model.Speed;
+                car.Price = model.Price;
+                car.Name = model.Name;
+                car.Model = model.Model;
+
+                await _carRepository.Update(car);
+
+                return BaseResponse;
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[DeleteCar] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+
+            throw new NotImplementedException();
+        }
     }
 }

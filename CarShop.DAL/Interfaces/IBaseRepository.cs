@@ -11,11 +11,11 @@ namespace CarShop.DAL.Interfaces
         Task<bool> Create(T entity);
 
 
-        Task<List<T>> Select();
+        IQueryable<T> Select();
 
         Task<bool> Delete(T enity);
 
-
+        Task<T> Update(T entity);
 
     }
 }
