@@ -1,6 +1,7 @@
 using CarShop.DAL;
 using CarShop.DAL.Interfaces;
 using CarShop.DAL.Repositories;
+using CarShop.Domain.Entity;
 using CarShop.Service.Implementations;
 using CarShop.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +36,9 @@ namespace CarShop
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connection));
 
-            services.AddScoped<ICarRepository, CarRepository>();
+
+            services.AddControllersWithViews();
+            services.AddScoped<IBaseRepository<Car>, CarRepository>();
             services.AddScoped<ICarService, CarService>();
 
         }

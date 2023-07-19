@@ -26,7 +26,7 @@ namespace CarShop.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCars()
         {
-            var responce = await _carService.GetCars();
+            var responce =  _carService.GetCars();
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(responce.Data);
@@ -38,7 +38,7 @@ namespace CarShop.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCarById(int id)
         {
-            var responce = await _carService.GetCarById(id);
+            var responce = await _carService.GetCar(id);
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(responce.Data);
@@ -69,7 +69,7 @@ namespace CarShop.Controllers
             {
                 return View();
             }
-            var responce = await _carService.GetCarById(id);
+            var responce = await _carService.GetCar(id);
 
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -80,13 +80,13 @@ namespace CarShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(CarViewModel model)
+        public async Task<IActionResult> Save(CarViewModel model, byte[] image)
         {
             if (ModelState.IsValid)
             {
                 if(model.Id == 0)
                 {
-                    await _carService.CreateCar(model);
+                    await _carService.Create(model, image);
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace CarShop.Controllers
 
         public async Task<IActionResult> Get(int id)
         {
-            var responce = await _carService.GetCarById(id);
+            var responce = await _carService.GetCar(id);
             return View(responce.Data);
         }
     }

@@ -11,17 +11,19 @@ namespace CarShop.Service.Interfaces
 {
 	public interface ICarService
 	{
-        Task<IBaseResponse<IEnumerable<Car>>> GetCars();
+        //BaseResponse<Dictionary<int, string>> GetTypes();
 
-        Task<IBaseResponse<Car>> GetCarById(int id);
+        IBaseResponse<List<Car>> GetCars();
 
-        Task<IBaseResponse<Car>> GetCarByName(string name);
+        Task<IBaseResponse<CarViewModel>> GetCar(long id);
 
-        Task<IBaseResponse<bool>> DeleteCar(int id);
+        Task<BaseResponse<Dictionary<long, string>>> GetCar(string term);
 
-        Task<IBaseResponse<CarViewModel>> CreateCar(CarViewModel car);
+        Task<IBaseResponse<Car>> Create(CarViewModel car, byte[] imageData);
 
-        Task<IBaseResponse<Car>> Edit(int id, CarViewModel car);
+        Task<IBaseResponse<bool>> DeleteCar(long id);
+
+        Task<IBaseResponse<Car>> Edit(long id, CarViewModel model);
 
 
 

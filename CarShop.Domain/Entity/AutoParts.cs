@@ -10,6 +10,7 @@ namespace CarShop.Domain.Entity
     {
         public int Id { get; set; }
 
+        public AutoParts IdCar { get; set; }
         public string Descriptions { get; set; }
 
 

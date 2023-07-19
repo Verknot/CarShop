@@ -10,13 +10,16 @@ namespace CarShop.DAL
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-
-
-        }
 
         public DbSet<Car> Car { get; set; }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+          //  Database.EnsureDeleted();
+           // Database.EnsureCreated();
+            
+        }
+
+       
 
 
 

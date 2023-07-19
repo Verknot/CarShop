@@ -8,7 +8,7 @@
 <style>
     .card-buttons-group {
         text-align: right;
-        padding: 100px;
+        padding: 10px;
     }
 </style>
 
@@ -69,14 +69,14 @@ else
                         <img src="https://images.wallpaperscraft.ru/image/single/mercedes_benz_s_class_w222_112850_800x600.jpg" class="card-img-top" alt="@car.Name">
                         <div class="card-body">
                             <h5 class="card-title">@car.Name</h5>
-                            <p class="card-text">@car.Descroptions</p>
+                                    <p class="card-text">@car.Description</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Стоимость: @car.Price ₽</li>
                             <li class="list-group-item">@car.TypeCar</li>
                         </ul>
                         <div class="card-body">
-                            <a asp-action="GetCarById" asp-route-id="@car.Id" class="card-link">Перейти</a>
+                                    <a asp-action="GetCarById" asp-route-id="@car.Id" class="card-link">Перейти</a>
                             @* <a asp-controller="Basket" asp-action="Add" asp-route-id="@id" class="card-link">Добавить</a> *@
                             @if (User.IsInRole("Admin"))
                             {

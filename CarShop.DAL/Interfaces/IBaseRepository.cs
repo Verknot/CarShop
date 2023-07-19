@@ -11,7 +11,7 @@ namespace CarShop.DAL.Interfaces
         Task<bool> Create(T entity);
 
 
-        IQueryable<T> Select();
+        IQueryable<T> GetAllCars();
 
         Task<bool> Delete(T enity);
 
