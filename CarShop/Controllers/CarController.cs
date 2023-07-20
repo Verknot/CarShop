@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using CarShop.Domain.Entity.Enum;
 using Microsoft.AspNetCore.Authorization;
 using CarShop.Domain.ViewModel.Car;
+using System.IO;
+using Microsoft.VisualBasic;
 
 namespace CarShop.Controllers
 {
@@ -29,7 +31,7 @@ namespace CarShop.Controllers
             var responce =  _carService.GetCars();
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(responce.Data);
+                return  View(responce.Data);
             }
 
             return RedirectToAction("Error");
@@ -62,15 +64,16 @@ namespace CarShop.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(int id)
         {
             if  (id == 0)
             {
                 return View();
             }
+             
             var responce = await _carService.GetCar(id);
-
+            
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(responce.Data);
@@ -86,6 +89,13 @@ namespace CarShop.Controllers
             {
                 if(model.Id == 0)
                 {
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+                    }
+
+                     
                     await _carService.Create(model, image);
                 }
                 else
@@ -103,6 +113,14 @@ namespace CarShop.Controllers
         {
             var responce = await _carService.GetCar(id);
             return View(responce.Data);
+        }
+
+
+        [HttpPost]
+        public JsonResult GetTypes()
+        {
+            var types = _carService.GetTypes();
+            return Json(types.Data);
         }
     }
 }

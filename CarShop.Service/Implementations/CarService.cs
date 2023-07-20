@@ -12,7 +12,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Web;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
+using CarShop.Domain.Extensions;
 
 namespace CarShop.Service.Implementations
 {
@@ -30,7 +35,7 @@ namespace CarShop.Service.Implementations
             try
             {
                 var types = ((TypeCar[])Enum.GetValues(typeof(TypeCar)))
-                    .ToDictionary(k => (int)k, t => t.ToString());  //GetDisplayName()); ;
+                    .ToDictionary(k => (int)k, t => t.GetDisplayName()); ;
 
                 return new BaseResponse<Dictionary<int, string>>()
                 {
@@ -68,7 +73,7 @@ namespace CarShop.Service.Implementations
                     Description = car.Description,
                     Name = car.Name,
                     Price = car.Price,
-                    TypeCar = car.TypeCar.ToString(), 
+                    TypeCar = car.TypeCar.GetDisplayName(), 
                     Speed = car.Speed,
                     Model = car.Model,
                     Image = car.Avatar,
@@ -105,7 +110,7 @@ namespace CarShop.Service.Implementations
                         Model = x.Model,
                         DateCreate = x.DateCreate.ToLongDateString(),
                         Price = x.Price,
-                        TypeCar = x.TypeCar.ToString(), //GetDisplayName()
+                        TypeCar = x.TypeCar.GetDisplayName()
                     })
                     .Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
                     .ToDictionaryAsync(x => x.Id, t => t.Name);
@@ -234,7 +239,8 @@ namespace CarShop.Service.Implementations
         {
             try
             {
-                var cars = _carRepository.GetAllCars().ToList();
+                
+                var cars =  _carRepository.GetAllCars().ToList();
                 if (!cars.Any())
                 {
                     return new BaseResponse<List<Car>>()

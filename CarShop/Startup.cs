@@ -37,9 +37,9 @@ namespace CarShop
             options.UseSqlServer(connection));
 
 
-            services.AddControllersWithViews();
-            services.AddScoped<IBaseRepository<Car>, CarRepository>();
-            services.AddScoped<ICarService, CarService>();
+
+            services.InitializeRepositories();
+            services.InitializeService();
 
         }
 

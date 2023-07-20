@@ -25,6 +25,8 @@ namespace CarShop.Service.Interfaces
 
         Task<IBaseResponse<Car>> Edit(long id, CarViewModel model);
 
+        public BaseResponse<Dictionary<int, string>> GetTypes();
+
 
 
 
