@@ -20,27 +20,9 @@ namespace CarShop.Controllers
         }
 
         public IActionResult Index()
-        {
-            Car car = new Car()
-            {
-                Speed = 14,
-                Name = "alex"
-                
-            };
-
-                
-            return View(car);
+        { 
+            return View();
         }
-
-        [HttpGet]
-        public Car GetCars()
-        {
-
-
-            return null;
-        }
-
-
         public IActionResult Privacy()
         {
             return View();

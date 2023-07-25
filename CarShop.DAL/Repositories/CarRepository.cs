@@ -12,46 +12,34 @@ namespace CarShop.DAL.Repositories
     public class CarRepository : IBaseRepository<Car>
     {
         private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext _db;
 
         public CarRepository(ApplicationDbContext db)
         {
-            this.db = db;
+            _db = db;
         }
 
-        public async Task<bool> Create(Car entity)
+        public async Task Create(Car entity)
         {
-            await db.Car.AddAsync(entity);
-            await db.SaveChangesAsync();
-
-
-
-            return true;
+            await _db.Car.AddAsync(entity);
+            await _db.SaveChangesAsync();
         }
 
-        public async Task<bool> Delete(Car enity)
+        public IQueryable<Car> GetAll()
         {
-
-            db.Car.Remove(enity);
-            await db.SaveChangesAsync();
-
-            return true;
+            return _db.Car;
         }
 
-        public IQueryable<Car> GetAllCars()
+        public async Task Delete(Car entity)
         {
-            return db.Car;
-        }
-
-
-        public Task<List<Car>> Select()
-        {
-            return db.Car.ToListAsync();
+            _db.Car.Remove(entity);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<Car> Update(Car entity)
         {
-            db.Update(entity);
-            await db.SaveChangesAsync();
+            _db.Car.Update(entity);
+            await _db.SaveChangesAsync();
 
             return entity;
         }

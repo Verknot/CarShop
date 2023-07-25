@@ -57,7 +57,7 @@ namespace CarShop.Service.Implementations
         {
             try
             {
-                var car = await _carRepository.GetAllCars().FirstOrDefaultAsync(x => x.Id == id);
+                var car = await _carRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (car == null)
                 {
                     return new BaseResponse<CarViewModel>()
@@ -100,7 +100,7 @@ namespace CarShop.Service.Implementations
             var baseResponse = new BaseResponse<Dictionary<long, string>>();
             try
             {
-                var cars = await _carRepository.GetAllCars()
+                var cars = await _carRepository.GetAll()
                     .Select(x => new CarViewModel()
                     {
                         Id = x.Id,
@@ -165,7 +165,7 @@ namespace CarShop.Service.Implementations
         {
             try
             {
-                var car = await _carRepository.GetAllCars().FirstOrDefaultAsync(x => x.Id == id);
+                var car = await _carRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (car == null)
                 {
                     return new BaseResponse<bool>()
@@ -198,7 +198,7 @@ namespace CarShop.Service.Implementations
         {
             try
             {
-                var car = await _carRepository.GetAllCars().FirstOrDefaultAsync(x => x.Id == id);
+                var car = await _carRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (car == null)
                 {
                     return new BaseResponse<Car>()
@@ -240,7 +240,7 @@ namespace CarShop.Service.Implementations
             try
             {
                 
-                var cars =  _carRepository.GetAllCars().ToList();
+                var cars =  _carRepository.GetAll().ToList();
                 if (!cars.Any())
                 {
                     return new BaseResponse<List<Car>>()

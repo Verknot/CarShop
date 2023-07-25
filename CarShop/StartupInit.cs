@@ -19,6 +19,7 @@ namespace CarShop
         {
 
             services.AddScoped<IBaseRepository<Car>, CarRepository>();
+            services.AddScoped<IBaseRepository<User>, UserRepository>();
             
         }
 
@@ -27,6 +28,7 @@ namespace CarShop
 
    
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
     }
 }

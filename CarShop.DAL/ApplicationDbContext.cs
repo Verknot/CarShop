@@ -17,8 +17,8 @@ namespace CarShop.DAL
         public DbSet<User> User { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-          //  Database.EnsureDeleted();
-           // Database.EnsureCreated();
+           // Database.EnsureDeleted();
+            Database.EnsureCreated();
             
         }
 
