@@ -1,6 +1,5 @@
 ﻿using CarShop.DAL.Interfaces;
 using CarShop.Domain.Entity;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,37 +8,36 @@ using System.Threading.Tasks;
 
 namespace CarShop.DAL.Repositories
 {
-    public class CarRepository : IBaseRepository<Car>
+    public class OrderRepository : IBaseRepository<Order>
     {
         private readonly ApplicationDbContext _db;
 
-        public CarRepository(ApplicationDbContext db)
+        public OrderRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        public async Task Create(Car entity)
+        public async Task Create(Order entity)
         {
-            await _db.Cars.AddAsync(entity);
+            await _db.AddRangeAsync(entity);
             await _db.SaveChangesAsync();
         }
 
-        public IQueryable<Car> GetAll()
+        public async Task Delete(Order enity)
         {
-            return _db.Cars;
+            _db.Remove(enity);
+         await   _db.SaveChangesAsync();
         }
 
-        public async Task Delete(Car entity)
+        public IQueryable<Order> GetAll()
         {
-            _db.Cars.Remove(entity);
-            await _db.SaveChangesAsync();
+            return _db.Orders;
         }
 
-        public async Task<Car> Update(Car entity)
+        public async Task<Order> Update(Order entity)
         {
-            _db.Cars.Update(entity);
+            _db.Update(entity);
             await _db.SaveChangesAsync();
-
             return entity;
         }
     }

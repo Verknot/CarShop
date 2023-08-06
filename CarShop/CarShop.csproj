@@ -26,4 +26,8 @@
     <ProjectReference Include="..\CarShop.Service\CarShop.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Profile\" />
+  </ItemGroup>
+
 </Project>

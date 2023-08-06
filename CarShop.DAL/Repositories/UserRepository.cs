@@ -12,6 +12,7 @@ namespace CarShop.DAL.Repositories
     {
         private readonly ApplicationDbContext _db;
 
+
         public UserRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -19,24 +20,24 @@ namespace CarShop.DAL.Repositories
 
         public IQueryable<User> GetAll()
         {
-            return _db.User;
+            return _db.Users;
         }
 
         public async Task Delete(User entity)
         {
-            _db.User.Remove(entity);
+            _db.Users.Remove(entity);
             await _db.SaveChangesAsync();
         }
 
         public async Task Create(User entity)
         {
-            await _db.User.AddAsync(entity);
+            await _db.Users.AddAsync(entity);
             await _db.SaveChangesAsync();
         }
 
         public async Task<User> Update(User entity)
         {
-            _db.User.Update(entity);
+            _db.Users.Update(entity);
             await _db.SaveChangesAsync();
 
             return entity;

@@ -21,17 +21,18 @@ namespace CarShop.Service.Implementations
     {
        // private readonly IBaseRepository<Profile> _proFileRepository;
         private readonly IBaseRepository<User> _userRepository;
-       //private readonly IBaseRepository<Basket> _basketRepository;
+        //private readonly IBaseRepository<Basket> _basketRepository;
         private readonly ILogger<AccountService> _logger;
 
-
-        public AccountService(IBaseRepository<User> userRepository, ILogger<AccountService> logger)
+        public AccountService(IBaseRepository<User> userRepository,
+            ILogger<AccountService> logger, IBaseRepository<Profile> proFileRepository,
+            IBaseRepository<Basket> basketRepository)
         {
             _userRepository = userRepository;
             _logger = logger;
+          //  _proFileRepository = proFileRepository;
+        //    _basketRepository = basketRepository;
         }
-
-
 
         public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel model)
         {
@@ -42,7 +43,7 @@ namespace CarShop.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Пользователь с таким логином уже существует",
+                        Description = "Пользователь с таким логином уже есть",
                     };
                 }
 
@@ -55,29 +56,27 @@ namespace CarShop.Service.Implementations
 
                 await _userRepository.Create(user);
 
-                /*  var profile = new Profile()
-                  {
-                      UserId = user.Id,
-                  };
+                var profile = new Profile()
+                {
+                    UserId = user.Id,
+                };
 
-                  var basket = new Basket()
-                  {
-                      UserId
-                  }
-                 */
-               // await _proFileRepository.Create(profile);
-               // await _basketRepository.Create(basket);
+                var basket = new Basket()
+                {
+                    UserId = user.Id
+                };
+
+            //    await _proFileRepository.Create(profile);
+            //    await _basketRepository.Create(basket);
                 var result = Authenticate(user);
-             
+
                 return new BaseResponse<ClaimsIdentity>()
                 {
                     Data = result,
                     Description = "Объект добавился",
                     StatusCode = StatusCode.OK
                 };
-
             }
-
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"[Register]: {ex.Message}");
@@ -87,8 +86,6 @@ namespace CarShop.Service.Implementations
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-
-
         }
 
         public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model)
@@ -178,4 +175,3 @@ namespace CarShop.Service.Implementations
         }
     }
 }
-
